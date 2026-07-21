@@ -1,11 +1,11 @@
 import React from 'react';
 
-const AuthorPage = () => {
+const RegisterPage = () => {
     return (
         <div>
-            Authors
+            
         </div>
     );
 };
 
-export default AuthorPage;
+export default RegisterPage;
