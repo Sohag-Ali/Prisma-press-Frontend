@@ -49,7 +49,7 @@ if(result.success) {
         sameSite: "lax",
     });
 
-    redirect("/dashboard")
+    redirect("/dashboard");
 }
 
 
