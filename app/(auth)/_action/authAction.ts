@@ -1,5 +1,5 @@
 "use server"
-
+import { cookies } from "next/headers";
 type LoginState = {
     success: true;
     statusCode: number;
@@ -32,8 +32,24 @@ const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/auth/log
     body: JSON.stringify(payload),
 })
 
-const result = res.json();
+const result: LoginState = await res.json();
 
-console.log("result", result);  
+if(result.success) {
+
+    const cookieStore = await cookies();
+    cookieStore.set("accessToken", result.data.accessToken, {
+        httpOnly: true,
+        maxAge: 60 * 60 * 24, // 1 day
+        sameSite: "lax",
+    });
+    cookieStore.set("refreshToken", result.data.refreshToken, {
+        httpOnly: true,
+        maxAge: 60 * 60 * 24 * 7, // 1 week
+        sameSite: "lax",
+    });
+}
+
+
+
 return result;
 }
