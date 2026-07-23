@@ -22,6 +22,11 @@ export const getMe = async () => {
             // Authorization : `${accessToken}`,
 
             Cookie : `accessToken=${accessToken}`
+        },
+        cache : "force-cache",
+        next : {
+            revalidate : 60 * 60 * 24, // 1 day
+            tags : ["My-Profile"]
         }
     })
 
