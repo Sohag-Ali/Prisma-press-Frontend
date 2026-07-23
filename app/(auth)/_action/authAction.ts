@@ -1,4 +1,5 @@
 "use server"
+import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 type LoginState = {
     success: true;
@@ -32,7 +33,7 @@ const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/auth/log
     body: JSON.stringify(payload),
 })
 
-const result: LoginState = await res.json();
+const result = await res.json();
 
 if(result.success) {
 
@@ -47,6 +48,8 @@ if(result.success) {
         maxAge: 60 * 60 * 24 * 7, // 1 week
         sameSite: "lax",
     });
+
+    redirect("/dashboard")
 }
 
 
