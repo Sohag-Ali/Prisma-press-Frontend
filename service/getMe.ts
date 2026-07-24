@@ -2,37 +2,38 @@
 
 import { cookies } from "next/headers";
 
-
 export const getMe = async () => {
     const cookieStore = await cookies();
 
     const accessToken = cookieStore.get("accessToken")?.value || null;
 
     if(!accessToken){
-       return{
-        success : false,
-        message : "User not Looged in!"
-       }
+        // throw new Error("User Not Logged In!");
+
+        return {
+            success : false,
+            message : "User not logged in!"
+        }
     }
 
     const res = await fetch(`${process.env.BACKEND_API_URL}/api/users/me`, {
-        headers: {
-            // Authorization : accessToken as unknown as string
-            
+        headers : {
+            // Authorization : accessToken as unknown as string,
             // Authorization : `${accessToken}`,
+            // Authorization : `Bearer ${accessToken}`
 
             Cookie : `accessToken=${accessToken}`
         },
+
         cache : "force-cache",
         next : {
-            revalidate : 60 * 60 * 24, // 1 day
-            tags : ["My-Profile"]
+            revalidate : 60 * 60 * 24, // 1day
+            tags : ["my-profile"]
         }
-    })
+    });
 
     const result = res.json();
-    // console.log(result);
 
-    return result;
 
+    return result
 }
