@@ -1,11 +1,8 @@
-import React from 'react';
 
 const GlobalLoading = () => {
-    return (
-        <div>
-            GlobalLoading
-        </div>
-    );
-};
+  return (
+    <div>GlobalLoading</div>
+  )
+}
 
-export default GlobalLoading;
+export default GlobalLoading
