@@ -15,8 +15,8 @@ type LoginState = {
 
 
 export const loginAction = async (prevState: LoginState, formdata: FormData) => {
-console.log("formdata", formdata);
-console.log("prevState", prevState);
+// console.log("formdata", formdata);
+// console.log("prevState", prevState);
 
 const email = formdata.get("email");
 const password = formdata.get("password");
@@ -62,7 +62,7 @@ if(result.success) {
         redirect("/admin-dashboard");
     }
 
-    console.log("Decoded Token:", decodedToken);
+    // console.log("Decoded Token:", decodedToken);
 
     
     // redirect("/dashboard");

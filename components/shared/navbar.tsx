@@ -61,7 +61,7 @@ export function Navbar({user} : NavbarProps) {
     const router = useRouter();
 
     const logoutAction = async(action: string) => {
-        console.log("Logout action triggered:", action);
+        // console.log("Logout action triggered:", action);
 
         if (action === "logout") {
             await logout();
