@@ -5,6 +5,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { jwtUtils } from './utils/jwt';
 import { cookies } from 'next/headers';
 import { getNewAccessToken } from './service/refreshToken';
+import { getSubscriptionStatus } from './app/(publicGroup)/_actions/getSubscriptionStatus';
 
 const AUTH_ROUTES = ["/login", "/register"];
 const PUBLIC_ROUTES = ["/", "/news"];
@@ -90,6 +91,25 @@ export async function proxy(request: NextRequest) {
     }
 
 
+     
+    if(pathname === "/premium"){
+        const subscriptionStatus =  await getSubscriptionStatus();
+        const isActive = Boolean(
+            subscriptionStatus?.success && subscriptionStatus?.data?.isSubscribed
+        )
+
+        if(!isActive){
+            return NextResponse.redirect(new URL('/payment', request.url));
+        }
+    }
+
+    // if(pathname === "/payment"){
+       
+
+    //     if(!isActive){
+    //         return NextResponse.redirect(new URL('/premium', request.url));
+    //     }
+    // }
 //   return NextResponse.redirect(new URL('/', request.url))
   return NextResponse.next()
 }
